@@ -17,6 +17,6 @@ public class ConsolePL implements Runnable {
                 {0.3, 0.2, 0.5, 11.0}
         };
 
-
+        orthonormalization.findX(matrix);
     }
 }
