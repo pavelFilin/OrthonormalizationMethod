@@ -3,7 +3,7 @@ package ru.feeleen.BLL;
 import ru.feeleen.BLL.helper.Matrix.MatrixHelper;
 
 public class Orthonormalization {
-    public Double[] findX(Double[][] matrix) {
+    public Double[][] findX(Double[][] matrix) {
         Double[][] rMassive = new Double[matrix.length][];
         for (int i = 0; i < rMassive.length; i++) {
             rMassive[i] = new Double[rMassive.length];
@@ -56,10 +56,25 @@ public class Orthonormalization {
             }
         }
 
-        Double[][] rTransposeD = MatrixHelper.transpose(rMassive);
-        Double[][] D = MatrixHelper.multiply(rTransposeD, rMassive);
+        Double[][] rTransposed = MatrixHelper.transpose(rMassive);
+        Double[][] D = MatrixHelper.multiply(rTransposed, rMassive);
+        Double[][] DInvert = MatrixHelper.invertMatrix(D);
+        Double[][] TInvert = MatrixHelper.invertMatrix(lamdaMassive);
+        Double[][] b = new Double[matrix.length][];
 
 
-        return new Double[0];
+        for (int i = 0; i < matrix.length; i++) {
+            b[i] = new Double[1];
+            b[i][0] = matrix[i][matrix[0].length-1];
+        }
+
+
+        Double[][] result = MatrixHelper.multiply(TInvert, DInvert);
+        //result = MatrixHelper.multiply(result, rTransposed);
+        Double[][] RB = MatrixHelper.multiply(rTransposed, b);
+
+        result = MatrixHelper.multiply(result, RB);
+
+        return result;
     }
 }
