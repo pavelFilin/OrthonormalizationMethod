@@ -68,11 +68,8 @@ public class Orthonormalization {
             b[i][0] = matrix[i][matrix[0].length-1];
         }
 
-
         Double[][] result = MatrixHelper.multiply(TInvert, DInvert);
-        //result = MatrixHelper.multiply(result, rTransposed);
         Double[][] RB = MatrixHelper.multiply(rTransposed, b);
-
         result = MatrixHelper.multiply(result, RB);
 
         return result;
